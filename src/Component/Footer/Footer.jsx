@@ -1,6 +1,7 @@
 import React from "react"
 import {  IconFaFacebookF, IconFaInstagram, IconFaMapMarkerAlt, IconFaWhatsapp, IconFaYoutube, IconsMdEmail } from "../Icons/Icons"
 import pdf from "../../Image/LLERASPARK.pdf"
+import logo from "../../Image/logolleras.png"
 const Footer =() =>{
 
     const handleFacebook = () => {
@@ -16,14 +17,13 @@ const Footer =() =>{
                 <div className="mx-auto max-w-7xl p-4  flex flex-col md:flex-row justify-between items-start md:items-center">
                 <div className="flex">
                     <img
-                        src="https://github.com/rolandoto/lleraspark/blob/main/public/lleraspark.png?raw=true"
+                        src={logo}
                         alt="Logo de Gallery Hotel" 
                         width="100" 
                         height="100"
                         className="w-48 mb-4"
                     />
                 </div>
-
                 <div>
                     <div className="">
                         <ul className="space-y-2">
@@ -31,9 +31,7 @@ const Footer =() =>{
                             <li className="flex items-center mr-6">  <IconsMdEmail />  reservas@lleraspark.com</li>
                             <li className="flex items-center"> <IconFaMapMarkerAlt/>  Cra. 38 #8 - 83                            </li>
                         </ul>
-                    
                     </div>
-                    
                     <div className="w-[350px] lg:w-[280px] lg:w-122 " >
                             <div className="flex justify-center space-x-4 mt-4">
                                 <IconFaInstagram   onclick={handleInstagram} />

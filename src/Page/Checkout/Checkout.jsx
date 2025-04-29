@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Header from "../../Component/Header/Header"
 import UseCart from "../../Hooks/UseCart"
 import useReservationCreate from '../../Actions/useReservationCreate';
 import { useSelector } from 'react-redux';
@@ -14,8 +13,8 @@ import FormCheckout from '../../Component/FormCheckout/FormCheckout';
 import ConfirmationMessage from '../../Component/ConfirmationMessage/ConfirmationMessage';
 import WhatsappButton from '../../Component/WhatsappButton/WhatsappButton';
 import { Environment } from '../../Config/Config';
-import { MainProduct } from '../../Ui/Style/GeneralStyle';
-import SearchGlobal from '../../Component/SearchGlobal/SearchGlobal';
+import HeaderStep from '../../Component/Header/HeaderStep';
+import Footer from '../../Component/Footer/Footer';
 
 const Checkout  =() =>{
     useFetchData();
@@ -40,9 +39,7 @@ const Checkout  =() =>{
 
     const Rooms = cart.map(item => ({
         "roomTypeID": item.roomTypeID,
-        "quantity": item.quantity,
-        "rateID": 2550029,
-        
+        "quantity": item.quantity,  
     }));
 
 
@@ -65,11 +62,11 @@ const Checkout  =() =>{
     }));
 
    
-    const subtotalPayment =  night[0]?.price
+    const subtotalPayment = night.reduce((total, item) => total + (item.price || 0), 0);
     const StartDate = night[0]?.startDate
     const EndDate = night[0]?.endDate
     const validCode = night[0]?.validCode
-
+    
   
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -130,42 +127,12 @@ const Checkout  =() =>{
      <div className="relative  bg-cover bg-center h-full">
         {loadingCart && <LoadingOverlay title={"Cargando..."} />}
         {loading && <LoadingOverlay title={"Creando reserva..."} />}  
-        <Header/>
-        <div className="p-2 lg:px-8">
-        <SearchGlobal />
+        <HeaderStep  currentStep={2}/>
+        <WhatsappButton />
+        <Toaster position="bottom-right"  richColors   />  
+        {FillContent()}
+        <Footer />
         </div>
-     
-        <div className=" lg:flex hidden p-2 lg:px-8" >
-                <MainProduct className="m-auto flex ">
-                    <div className="flex lg:w-[47%] w-[100%] justify-center bg-white rounded-[40px]  p-4  items-center space-x-1">
-                    <span className=" bg-gray-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">1</span>
-                    <span className=" text-black">Elegir un espacio
-                    </span>
-                    </div>
-                    <div className=" flex  border-confirme  bg-black p-4 items-center space-x-1">
-                    <span className="bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-sm">2</span>
-                    <span className="text-white">Confirmación</span>
-                    </div>
-                </MainProduct>
-                </div>
-
-                <div className="lg:hidden flex  p-2 lg:px-8" >
-                <MainProduct className="m-auto ">
-                    <div className="flex lg:w-[47%] w-[100%] justify-center bg-black rounded-[40px]  p-4  items-center space-x-1">
-                    <span className="bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-sm">2</span>
-                    <span className=" text-white">Confirmación
-                    </span>
-                    </div>
-                </MainProduct>
-            </div>
-
-            
-            <WhatsappButton />
-            
-            <Toaster position="bottom-right"  richColors   />  
-                {FillContent()}
-
-                </div>
             </>)
 
 }
